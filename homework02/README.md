@@ -27,14 +27,17 @@ python3 test_read_animals.py
 
 Running in a Container:
 
+docker build -t username/homework02:1.0 .
+#builds the docker image, replace 'username' with your dockerhub username
+
 docker run --rm -it colenockolds/homework02:1.0 /bin/bash
 #enters a container for the dockerfile
 
 cd /home
 #enters home directory
 
-generate_animals.py filename.json
-#generates a list of 20 random hybrid animals in a file called filename.json, (filename can be replace with anything followed by .json)
+generate_animals.py
+#generates a list of 20 random hybrid animals in a file called animals.json
 
-read_animals.py filename.json
+read_animals.py
 #prints two parent animals and runs a breeding fuction that combines the two animals traits to create a new child animal
