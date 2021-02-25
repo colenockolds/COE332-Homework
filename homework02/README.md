@@ -34,7 +34,7 @@ cd /home
 #enters home directory
 
 generate_animals.py filename.json
-#generates a list of 20 random hybrid animals in a file called animals.json
+#generates a list of 20 random hybrid animals in a file called filename.json, (filename can be replace with anything followed by .json)
 
 read_animals.py filename.json
 #prints two parent animals and runs a breeding fuction that combines the two animals traits to create a new child animal
