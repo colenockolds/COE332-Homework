@@ -5,7 +5,7 @@ This repository contains a script to generate a list of twenty hybrid animals. A
 ## Installation
 
 Github:
-git fetch git://github.com/colenockolds/COE332-Homework.git/homework02
+git pull git://github.com/colenockolds/COE332-Homework.git/homework02
 #downloads the homework02 repository, which contains the scripts generate_animals.py, read_animals.py, test_read_animals.py, the Dockerfile, and this README
 
 Dockerhub:
@@ -16,13 +16,13 @@ docker pull colenockolds/homework02:1.0
 
 Running on ISP:
 
-python3 generate_animals.py animals.json
+python3 generate_animals.py
 #generates a list of 20 random hybrid animals in a file called animals.json
 
-python3 read_animals.py animals.json
+python3 read_animals.py
 #prints two parent animals and runs a breeding fuction that combines the two animals traits to create a new child animal
 
-python3 test_read_animals.py animals.json
+python3 test_read_animals.py
 #runs a unit test to make sure the the number of arms, legs, and tails on the child animal are whole numbers
 
 Running in a Container:
