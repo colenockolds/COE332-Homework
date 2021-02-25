@@ -10,7 +10,7 @@ git pull git://github.com/colenockolds/COE332-Homework.git/homework02
 
 Dockerhub:
 docker pull colenockolds/homework02:1.0
-#pulls the dockerfile from dockerhub to creates an image
+#pulls the dockerfile from dockerhub to build an image
 
 ## Usage
 
