@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import json
 import sys
 import petname
@@ -12,5 +13,5 @@ for i in range(20):
    l = randrange(3, 13, 3)
    data['animals'].append( {'head': head_list[randrange(1,5,1)], 'body': petname.name()+'-'+petname.name(), 'arms': a, 'legs': l, 'tail' : a+l} )
 
-with open(sys.argv[1], 'w') as out:
+with open('animals.json', 'w') as out:
     json.dump(data, out, indent=2)

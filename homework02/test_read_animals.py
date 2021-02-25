@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import unittest
 import sys
 
@@ -13,4 +14,4 @@ class TestReadAnimals(unittest.TestCase):
       #I tested to see if the number of arms, legs, and tails are integers because my Breed function was meant to be set up in a way to avoid any half arms legs or tails.
 
 if __name__ == '__main__':
-    unittest.main()
+   unittest.main()

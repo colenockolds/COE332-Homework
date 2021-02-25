@@ -1,9 +1,10 @@
+#!/usr/bin/env python3
 import json
 import sys
 from random import randrange
 
 animals = {}
-with open(sys.argv[1], 'r') as f:
+with open('animals.json', 'r') as f:
     animals = json.load(f)
 
 def Breed(parent1,parent2):

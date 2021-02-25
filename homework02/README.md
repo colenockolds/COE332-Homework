@@ -4,11 +4,13 @@ This repository contains a script to generate a list of twenty hybrid animals. A
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Github:
+git fetch git://github.com/colenockolds/COE332-Homework.git/homework02
+#downloads the homework02 repository, which contains the scripts generate_animals.py, read_animals.py, test_read_animals.py, the Dockerfile, and this README
 
-```bash
-pip install foobar
-```
+Dockerhub:
+docker pull colenockolds/homework02:1.0
+#pulls the dockerfile from dockerhub
 
 ## Usage
 
@@ -24,3 +26,15 @@ python3 test_read_animals.py animals.json
 #runs a unit test to make sure the the number of arms, legs, and tails on the child animal are whole numbers
 
 Running in a Container:
+
+docker run --rm -it colenockolds/homework02:1.0 /bin/bash
+#enters a container for the dockerfile
+
+cd /home
+#enters home directory
+
+generate_animals.py filename.json
+#generates a list of 20 random hybrid animals in a file called animals.json
+
+read_animals.py filename.json
+#prints two parent animals and runs a breeding fuction that combines the two animals traits to create a new child animal
