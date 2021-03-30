@@ -8,10 +8,6 @@ Github:
 git pull git://github.com/colenockolds/COE332-Homework.git/midtermProject
 #downloads the midtermProject repository from Github 
 
-Dockerhub:
-docker pull colenockolds/midtermproject:1.0
-#pulls the dockerfile from dockerhub
-
 ## Usage
 
 Starting the App:
