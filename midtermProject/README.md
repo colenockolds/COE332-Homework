@@ -6,7 +6,7 @@ This repository contains a flask app which connects to a redis server to interac
 
 Github:
 git pull git://github.com/colenockolds/COE332-Homework.git/midtermProject
-# downloads the midtermProject repository from Github 
+#downloads the midtermProject repository from Github 
 
 ## Usage
 
@@ -21,10 +21,10 @@ docker-compose up -d
 Flask Routes:
 
 curl localhost:5023/reset
-# this route needs to be run first in order to put the data from the animal.json file into the redis database
+#this route needs to be run first in order to put the data from the animal.json file into the redis database
 
 curl localhost:5023/animals
-# returns a list of all animals currently on the redis database
+#returns a list of all animals currently on the redis database
 
 curl localhost:5023/animals/count
 #returns the total number of animals on the island
