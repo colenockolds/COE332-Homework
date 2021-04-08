@@ -1,0 +1,40 @@
+A)
+
+The yaml file for part A is pod-basic.yaml.
+Command to create the pod: kubectl apply -f pod-basic.yaml
+Command to get the pod using an appropriate selector: kubectl get pods  --selector "greeting=personalized"
+Command to get logs of pod: kubectl logs hello
+Output of logs command: Hello, !
+This is what I expected because NAME had no value so it would appear as ‘’.
+Command to delete the pod: kubectl delete pods hello
+
+B)
+
+The yaml file for part B is pod-basic-1.yaml.
+Command to create the pod: kubectl apply -f pod-basic-1.yaml
+Command to get logs of pod: kubectl logs hello
+Output of logs command: Hello, Cole!
+Command to delete the pod: kubectl delete pods hello
+
+C)
+
+The yaml file for part C is pod-deployment.yaml.
+Command to create deployment: kubectl apply -f pod-deployment.yaml
+Command to get the pods with IP addresses: kubectl get pods -o wide
+Output:
+NAME                                READY   STATUS    RESTARTS   AGE     IP             NODE   NOMINATED NODE   READINESS GATES
+hello-deployment-76d9879bc9-bg2t2   1/1     Running   0          2m42s   10.244.3.183   c01    <none>           <none>
+hello-deployment-76d9879bc9-grvwv   1/1     Running   0          2m42s   10.244.7.137   c05    <none>           <none>
+hello-deployment-76d9879bc9-jzkpq   1/1     Running   0          2m42s   10.244.4.144   c02    <none>           <none>
+Commands to get logs of the pods:
+kubectl logs hello-deployment-76d9879bc9-bg2t2
+Output: Hello, Cole from IP 10.244.3.183.
+
+kubectl logs hello-deployment-76d9879bc9-grvwv
+Output: Hello, Cole from IP 10.244.7.137.
+
+kubectl logs hello-deployment-76d9879bc9-jzkpq
+Output: Hello, Cole from IP 10.244.4.144.
+
+The outputs do not match the outputs of part B due to the new environment variable.
+
