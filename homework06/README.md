@@ -6,22 +6,30 @@ git pull git://github.com/colenockolds/COE332-Homework.git/homework06
  
 ## Step 1 - Redis PVC
 yaml file: nockolds-test-redis-pvc.yaml
+
 command to create PVC: kubectl apply -f nockolds-test-redis-pvc.yaml
+
 output: persistentvolumeclaim/nockolds-redis-data created
 
 ## Step 2 - Redis Deployment
 yaml file: nockolds-test-redis-deployment.yaml
+
 command to create deployment: kubectl apply -f nockolds-test-redis-deployment.yaml
+
 output: deployment.apps/nockolds-redis-deployment created
 
 ## Step 3 - Redis Service
 yaml file: nockolds-test-redis-service.yaml
+
 command to create service: apply -f nockolds-test-redis-service.yaml
+
 output: service/nockolds-test-service-redis created
 
 ## Checking Work
 yaml file: python-debug-deployment.yaml
+
 command to create deployment: kubectl apply -f python-debug-deployment.yaml
+
 output: deployment.apps/py-debug-deployment created
 
 command to find redis service IP: kubectl get services
@@ -81,12 +89,16 @@ checking persistence:
 
 ## Step 4 - Flask Deployment
 yaml file: nockolds-test-flask-deployment.yaml
+
 command to create deployment: kubectl apply -f nockolds-test-flask-deployment.yaml
-output: output: deployment.apps/nockolds-test-flask-deployment created
+
+output: deployment.apps/nockolds-test-flask-deployment created
 
 ## Step 5 - Flask Service
 yaml file: nockolds-test-flask-service.yaml
+
 command to create service: apply -f nockolds-test-flask-service.yaml
+
 output: service/nockolds-test-service-flask created
  
 ## Final Note
