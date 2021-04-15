@@ -35,59 +35,44 @@ output: deployment.apps/py-debug-deployment created
 command to find redis service IP: kubectl get services
 output:
 ```
-> NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
-
-> app1                          NodePort    10.103.86.163   <none>        5000:31014/TCP   7d9h
-
-> nockolds-test-service-flask   ClusterIP   10.106.48.233   <none>        5000/TCP         147m
-
-> nockolds-test-service-redis   ClusterIP   10.104.203.97   <none>        6379/TCP         163m
+NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+app1                          NodePort    10.103.86.163   <none>        5000:31014/TCP   7d9h
+nockolds-test-service-flask   ClusterIP   10.106.48.233   <none>        5000/TCP         147m
+nockolds-test-service-redis   ClusterIP   10.104.203.97   <none>        6379/TCP         163m
 ```
 commands and outputs for work in debug container:
-> [nockolds@isp02 homework06]$ kubectl exec -it py-debug-deployment-5cc8cdd65f-hblm2 -- /bin/bash
-
-> root@py-debug-deployment-5cc8cdd65f-hblm2:/# pip3 install redis
-
-> Requirement already satisfied: redis in /usr/local/lib/python3.9/site-packages (3.5.3)
-
-> root@py-debug-deployment-5cc8cdd65f-hblm2:/# python3
-
-> Python 3.9.4 (default, Apr 10 2021, 15:31:19) 
-
-> [GCC 8.3.0] on linux
-
-> Type "help", "copyright", "credits" or "license" for more information.
-
-> >>> import redis
-
-> >>> rd=redis.StrictRedis(host='10.104.203.97', port=6379, db=0)
-
-> >>> rd.set('key','example')
-
-> True
-
-> >>> rd.keys()
-
-> [b'key']
-
+```
+[nockolds@isp02 homework06]$ kubectl exec -it py-debug-deployment-5cc8cdd65f-hblm2 -- /bin/bash
+root@py-debug-deployment-5cc8cdd65f-hblm2:/# pip3 install redis
+Requirement already satisfied: redis in /usr/local/lib/python3.9/site-packages (3.5.3)
+root@py-debug-deployment-5cc8cdd65f-hblm2:/# python3
+Python 3.9.4 (default, Apr 10 2021, 15:31:19) 
+[GCC 8.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import redis
+>>> rd=redis.StrictRedis(host='10.104.203.97', port=6379, db=0)
+>>> rd.set('key','example')
+True
+>>> rd.keys()
+[b'key']
+```
 checking persistence:
 1. delete pod
-> [nockolds@isp02 homework06]$ kubectl delete pods nockolds-redis-deployment-78b59776f-x459h
-
-> pod "nockolds-redis-deployment-78b59776f-x459h" deleted
-
+```
+[nockolds@isp02 homework06]$ kubectl delete pods nockolds-redis-deployment-78b59776f-x459h
+pod "nockolds-redis-deployment-78b59776f-x459h" deleted
+```
 2. check that new pod is in list
-> [nockolds@isp02 homework06]$ kubectl get pods
-
-> NAME                                              READY   STATUS             RESTARTS   AGE
-
-> nockolds-redis-deployment-78b59776f-6krxw         1/1     Running            0          73s
-
+```
+[nockolds@isp02 homework06]$ kubectl get pods
+NAME                                              READY   STATUS             RESTARTS   AGE
+nockolds-redis-deployment-78b59776f-6krxw         1/1     Running            0          73s
+```
 3. check that key is still present in the debugger:
-> >>> rd.keys()
-
-> [b'key']
-
+```
+>>> rd.keys()
+[b'key']
+```
 ## Step 4 - Flask Deployment
 yaml file: nockolds-test-flask-deployment.yaml
 
