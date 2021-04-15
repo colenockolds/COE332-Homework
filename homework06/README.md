@@ -34,10 +34,10 @@ output: deployment.apps/py-debug-deployment created
 
 command to find redis service IP: kubectl get services
 output: 
-NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+"NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 app1                          NodePort    10.103.86.163   <none>        5000:31014/TCP   7d9h
 nockolds-test-service-flask   ClusterIP   10.106.48.233   <none>        5000/TCP         147m
-nockolds-test-service-redis   ClusterIP   10.104.203.97   <none>        6379/TCP         163m
+nockolds-test-service-redis   ClusterIP   10.104.203.97   <none>        6379/TCP         163m"
 
 commands and outputs for work in debug container:
 > [nockolds@isp02 homework06]$ kubectl exec -it py-debug-deployment-5cc8cdd65f-hblm2 -- /bin/bash
