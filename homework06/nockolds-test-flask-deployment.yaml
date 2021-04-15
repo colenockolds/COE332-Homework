@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nockolds-test-flask-deployment
+  labels:
+    username: "nockolds"
+    env: "test"
+    app: nockolds-test-flask
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nockolds-test-flask
+  template:
+    metadata:
+      labels:
+        username: "nockolds"
+        env: "test"
+        app: nockolds-test-flask
+    spec:
+      containers:
+        - name: hellos
+          imagePullPolicy: Always
+          image: colenockolds/nockoldsanimals
+          env:
+          - name: flask-app
+            value: "app.py"
+          - name: "REDIS_IP"
+            value: "10.104.203.97"
+          ports:
+          - name: http
+            containerPort: 5000

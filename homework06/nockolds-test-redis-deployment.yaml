@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nockolds-redis-deployment
+  labels:
+    username: "nockolds"
+    env: "test"
+    app: nockolds-test-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      username: "nockolds"
+      env: "test"
+      app: nockolds-test-redis
+  template:
+    metadata:
+      labels:
+        username: "nockolds"
+        env: "test"
+        app: nockolds-test-redis
+    spec:
+      containers:
+        - name: deployment
+          image: redis:5.0.0
+          volumeMounts:
+          - name: nockolds-redis-data
+            mountPath: "/data"
+      volumes:
+      - name: nockolds-redis-data
+        persistentVolumeClaim:
+          claimName: nockolds-redis-data
