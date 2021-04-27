@@ -20,8 +20,8 @@ spec:
         - name: worker
           imagePullPolicy: Always
           image: colenockolds/nockoldshw7:1.0
-          #command: ["python", "worker.py"]
-          command: ["sleep", "99999999"]
+          command: ["python", "worker.py"]
+          #command: ["sleep", "99999999"]
           env:
             - name: WORKER_IP
               valueFrom:

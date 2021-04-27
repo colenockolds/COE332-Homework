@@ -1,4 +1,5 @@
 import json
+import redis
 from flask import Flask, request
 import os
 import jobs

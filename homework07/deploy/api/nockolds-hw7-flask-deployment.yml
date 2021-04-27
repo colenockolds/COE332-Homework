@@ -5,25 +5,25 @@ metadata:
   labels:
     username: nockolds
     env: test
-    app: nockolds-flask
+    app: nockolds-test-flask
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nockolds-flask
+      app: nockolds-test-flask
   template:
     metadata:
       labels:
         username: nockolds
         env: test
-        app: nockolds-flask
+        app: nockolds-test-flask
     spec:
       containers:
         - name: worker
           imagePullPolicy: Always
           image: colenockolds/nockoldshw7:1.0
-#          command: ["python", "api.py"]
-          command: ["sleep", "99999999"]
+          command: ["python", "api.py"]
+          #command: ["sleep", "99999999"]
           env:
           - name: flask-app
             value: "api.py"

@@ -41,10 +41,15 @@ def add_job(start, end, status="submitted"):
     _queue_job(jid)
     return job_dict
 
-def update_job_status(jid, IP, status):
+def update_job_status(jid, status):
     jid, status, start, end = rd.hmget(generate_job_key(jid), 'id', 'status', 'start', 'end') 
     job = _instantiate_job(jid, status, start, end)
-    rd.hset(rd.hmget(generate_job_key(jid), 'IP', IP)
+    IP = os.environ.get('WORKER_IP')
+
+    if job:
+        job['status'] = 'in progress'
+        rd.hset(rd.hmget(generate_job_key(jid), 'IP', IP))
+
     if job:
         job['status'] = status
         _save_job(_generate_job_key(jid), job)
