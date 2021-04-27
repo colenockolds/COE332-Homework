@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nockolds-flask-deployment-hw7
+  labels:
+    username: nockolds
+    env: test
+    app: nockolds-flask
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nockolds-flask
+  template:
+    metadata:
+      labels:
+        username: nockolds
+        env: test
+        app: nockolds-flask
+    spec:
+      containers:
+        - name: worker
+          imagePullPolicy: Always
+          image: colenockolds/nockoldshw7:1.0
+#          command: ["python", "api.py"]
+          command: ["sleep", "99999999"]
+          env:
+          - name: flask-app
+            value: "api.py"
+          - name: REDIS_IP
+            value: "10.104.203.97"
+          ports:
+          - name: http
+            containerPort: 5000
+
