@@ -5,8 +5,6 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    username: "nockolds"
-    env: "test"
     app: nockolds-test-flask
   ports:
   - name: nockolds-test-service-flask
