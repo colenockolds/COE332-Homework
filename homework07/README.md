@@ -39,6 +39,6 @@ root@py-debug-deployment-5cc8cdd65f-hblm2:/# curl -X POST -H "content-type: appl
 root@py-debug-deployment-5cc8cdd65f-hblm2:/# curl -X POST -H "content-type: application/json" -d '{"start": 1, "end": 20}' 10.111.187.154:5000/jobs
 {"id": "e3c1d429-80a1-45e3-b9d7-65c79db33954", "status": "submitted", "start": 1, "end": 20}
 
-root@py-debug-deployment-5cc8cdd65f-hblm2:/# curl -X POST -H "content-type: application/json" -d '{"start": 1, "end": 17}' 10.111.187.154:5000/jobs
-{"id": "d979cd27-3e9a-4de8-8be5-b9a40bf117db", "status": "submitted", "start": 1, "end": 17}
+root@py-debug-deployment-5cc8cdd65f-hblm2:/# curl -X POST -H "content-type: application/json" -d '{"start": 1, "end": 6}' 10.111.187.154:5000/jobs
+{"id": "c4fe73a1-562f-4312-816f-c228b353a204", "status": "submitted", "start": 1, "end": 6}
 ```
