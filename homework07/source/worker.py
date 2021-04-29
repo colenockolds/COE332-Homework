@@ -1,6 +1,6 @@
 import time
-import os
-from jobs import q
+from hotqueue import HotQueue
+from jobs import q, update_job_status
 
 @q.worker
 def execute_job(jid):
