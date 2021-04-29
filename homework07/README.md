@@ -42,3 +42,8 @@ root@py-debug-deployment-5cc8cdd65f-hblm2:/# curl -X POST -H "content-type: appl
 root@py-debug-deployment-5cc8cdd65f-hblm2:/# curl -X POST -H "content-type: application/json" -d '{"start": 1, "end": 6}' 10.111.187.154:5000/jobs
 {"id": "c4fe73a1-562f-4312-816f-c228b353a204", "status": "submitted", "start": 1, "end": 6}
 ```
+
+## Checking Job Status 
+```
+
+```
