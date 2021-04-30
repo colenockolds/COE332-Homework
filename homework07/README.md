@@ -59,3 +59,4 @@ root@py-debug-deployment-5cc8cdd65f-hblm2:/# curl -X POST -H "content-type: appl
 >>> rd.hgetall(b'job.bbd951ce-ee4c-451f-95db-f23fe4006c2a')
 {b'id': b'bbd951ce-ee4c-451f-95db-f23fe4006c2a', b'status': b'complete', b'start': b'1', b'end': b'5', b'IP': b'10.244.12.100'}
 ```
+Each worker worked six jobs.
