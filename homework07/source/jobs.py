@@ -50,6 +50,6 @@ def update_job_status(jid, new_status):
         job['status'] = new_status     
         if new_status == 'in progress':
             job['IP'] = IP             
-        _save_job(_generate_job_key(jid), job)
+        _save_job(_generate_job_key(job['id']), job)
     else:
         raise Exception()
