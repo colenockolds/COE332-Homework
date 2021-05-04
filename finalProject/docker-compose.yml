@@ -1,0 +1,22 @@
+version: '3'
+services:
+    nockolds-db:
+        image: colenockolds/nockolds-app:${VER}
+        container_name: nockolds-db
+        ports:
+            - 6403:6379
+        user: "827385:815499"
+        volumes:
+            - ../data/:/data/
+    nockolds-api:
+        image: colenockolds/nockolds-app:${VER}
+        container_name: nockolds-api
+        environment:
+            - REDIS_IP=nockolds-db
+        ports:
+            - 5023:5000
+    nockolds-wrk:
+        image: colenockolds/nockolds-app:${VER}
+        container_name: nockolds-wrk
+        environment:
+            - REDIS_IP=nockolds-db
