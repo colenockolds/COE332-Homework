@@ -2,6 +2,7 @@ import uuid
 import os
 from hotqueue import HotQueue
 from redis import StrictRedis
+import matplotlib.pyplot as plt
 
 redis_ip = os.environ.get('REDIS_IP')
 if not redis_ip:
@@ -53,3 +54,33 @@ def update_job_status(jid, new_status):
         _save_job(_generate_job_key(job['id']), job)
     else:
         raise Exception()
+    return "Job Key: "+_generate_job_key(job['id']+"\n"
+
+def plot(restaurant):
+    restaurant = restaurant.replace('%',' ')
+    restaurant = restaurant.replace('[', '')
+    restaurant = restaurant.replace("'", '')
+    restaurant = restaurant.replace(']', '')
+    dates = []
+    score = []
+    for i in db.size():
+        key = 'key'+str(i)
+        if rd.hget(key,'Restaurant Name') == restaurant:
+            date = rd.hget(key,'Inspection Date')
+            date = date.replace('[', '')
+            date = date.replace("'", '')
+            date = date.replace(']', '')
+            score = = rd.hget(key,'Score')
+            score = score.replace('[', '')
+            score = score.replace("'", '')
+            score = score.replace(']', '')
+            dates = dates+datetime.datetime.strptime(date, "%m-%d-%Y")
+            scores = scores+int(score)
+    x = dates
+    y = scores
+    plt.plot(x,y)
+    restaurant = restaurant.replace('%','-')
+    plt.savefig(str(restaurant)+'.png')
+    file_bytes = open(str(restaurant)+'.png', 'rb').read()
+    rd.set(str(restaurant)+'_plot', file_bytes)
+    return "Plot Key: "+str(restaurant)+'_plot'+"\n"

@@ -55,11 +55,11 @@ def delete(key):
     return "Entry deleted."+"\n"
 
 @app.route('/emptydb', methods=['GET'])
-def emptydb()
+def emptydb():
     rd.flushdb()
     return "Database emptied."+"\n"
 
-@app.route('/jobs', methods=['POST'])
+@app.route('/jobs/<restaurant>', methods=['POST'])
 def jobs_api():
     try:
         job = request.get_json(force=True)
