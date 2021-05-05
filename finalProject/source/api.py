@@ -73,7 +73,7 @@ def jobs_api():
         job = request.get_json(force=True)
     except Exception as e:
         return True, json.dumps({'status': "Error", 'message': 'Invalid JSON: {}.'.format(e)})
-    return json.dumps(jobs.add_job(job['restaurant'], job['start'], job['end']))
+    return "Job submitted."+"\n"+json.dumps(jobs.add_job(job['restaurant']))
 
 def getdata():
     with open("Restaurant_Inspections.json", "r") as json_file:

@@ -16,19 +16,15 @@ def _generate_jid():
 def _generate_job_key(jid):
     return 'job.{}'.format(jid)
 
-def _instantiate_job(jid, restaurant, status, start, end):
+def _instantiate_job(jid, restaurant, status):
     if type(jid) == str:
         return {'id': jid,
                 'restaurant': restaurant,
-                'status': status,
-                'start': start,
-                'end': end
+                'status': status
         }
     return {'id': jid.decode('utf-8'),
             'restaurant': jid.decode('utf-8'),
-            'status': status.decode('utf-8'),
-            'start': start.decode('utf-8'),
-            'end': end.decode('utf-8')
+            'status': status.decode('utf-8')
     }
 
 def _save_job(job_key, job_dict):
@@ -37,16 +33,16 @@ def _save_job(job_key, job_dict):
 def _queue_job(jid):
     q.put(jid)
 
-def add_job(restaurant, start, end, status="submitted"):
+def add_job(restaurant, status="submitted"):
     jid = _generate_jid()
-    job_dict = _instantiate_job(jid, restaurant, status, start, end)
+    job_dict = _instantiate_job(jid, restaurant, status)
     _save_job(_generate_job_key(jid), job_dict)
     _queue_job(jid)
     return job_dict
 
 def update_job_status(jid, new_status):
-    jid, restaurant, status, start, end = rd.hmget(_generate_job_key(jid), 'id', 'restaurant', 'status', 'start', 'end') 
-    job = _instantiate_job(jid, restaurant, status, start, end)
+    jid, restaurant, status = rd.hmget(_generate_job_key(jid), 'id', 'restaurant', 'status') 
+    job = _instantiate_job(jid, restaurant, status)
     IP = os.environ.get('WORKER_IP')
 
     if job:                                                                 
