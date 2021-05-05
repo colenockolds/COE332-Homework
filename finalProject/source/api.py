@@ -28,6 +28,7 @@ def populate_redis():
 
 @app.route('/create/<key>/<name>/<address>/<zipcode>/<date>/<score>', methods=['GET'])
 def create(key, name, address, zipcode, date, score):
+    name = name.replace('%', ' ')
     rd.hmset(key, {'Restaurant Name': name, 'Address': address, 'Zip Code': zipcode, 'Date of Inspection': date, 'Inspection Score': score})
     return "New Restaurant: "+str(rd.hgetall(key))+"\n"
 
@@ -35,9 +36,15 @@ def create(key, name, address, zipcode, date, score):
 def select(key):
     return str(rd.hgetall(key))+"\n"
 
+@app.route('/restaurantlist', methods=['GET'])
+def listrestaurants():
+    rlist = [rd.hget(key, 'Restaurant Name') for key in rd.keys()]
+    return str(rlist)+"\n"
+
 @app.route('/update/<key>/<datapoint>/<new>', methods=['GET'])
 def edit_restaurant(key, datapoint, new):
     if datapoint == 'restaurantname':
+        new = new.replace('%', ' ')
         rd.hset(key, 'Restaurant Name', new)
     elif datapoint == 'zipcode':
         rd.hset(key, 'Zip Code', new)
@@ -46,6 +53,7 @@ def edit_restaurant(key, datapoint, new):
     elif datapoint == 'score':
         rd.hset(key, 'Inspection Score', new)
     else:
+        new = new.replace('%', ' ')
         rd.hset(key, datapoint, new)
     return "Updated Restaurant: "+str(rd.hgetall(key))+"\n"
 
@@ -59,13 +67,13 @@ def emptydb():
     rd.flushdb()
     return "Database emptied."+"\n"
 
-@app.route('/jobs/<restaurant>', methods=['POST'])
+@app.route('/jobs', methods=['POST'])
 def jobs_api():
     try:
         job = request.get_json(force=True)
     except Exception as e:
         return True, json.dumps({'status': "Error", 'message': 'Invalid JSON: {}.'.format(e)})
-    return json.dumps(jobs.add_job(job['start'], job['end']))
+    return json.dumps(jobs.add_job(job['restaurant'], job['start'], job['end']))
 
 def getdata():
     with open("Restaurant_Inspections.json", "r") as json_file:

@@ -16,14 +16,16 @@ def _generate_jid():
 def _generate_job_key(jid):
     return 'job.{}'.format(jid)
 
-def _instantiate_job(jid, status, start, end):
+def _instantiate_job(jid, restaurant, status, start, end):
     if type(jid) == str:
         return {'id': jid,
+                'restaurant': restaurant,
                 'status': status,
                 'start': start,
                 'end': end
         }
     return {'id': jid.decode('utf-8'),
+            'restaurant': jid.decode('utf-8'),
             'status': status.decode('utf-8'),
             'start': start.decode('utf-8'),
             'end': end.decode('utf-8')
@@ -35,16 +37,16 @@ def _save_job(job_key, job_dict):
 def _queue_job(jid):
     q.put(jid)
 
-def add_job(start, end, status="submitted"):
+def add_job(restaurant, start, end, status="submitted"):
     jid = _generate_jid()
-    job_dict = _instantiate_job(jid, status, start, end)
+    job_dict = _instantiate_job(jid, restaurant, status, start, end)
     _save_job(_generate_job_key(jid), job_dict)
     _queue_job(jid)
     return job_dict
 
 def update_job_status(jid, new_status):
-    jid, status, start, end = rd.hmget(_generate_job_key(jid), 'id', 'status', 'start', 'end') 
-    job = _instantiate_job(jid, status, start, end)
+    jid, restaurant, status, start, end = rd.hmget(_generate_job_key(jid), 'id', 'restaurant', 'status', 'start', 'end') 
+    job = _instantiate_job(jid, restaurant, status, start, end)
     IP = os.environ.get('WORKER_IP')
 
     if job:                                                                 
@@ -54,28 +56,30 @@ def update_job_status(jid, new_status):
         _save_job(_generate_job_key(job['id']), job)
     else:
         raise Exception()
-    return "Job Key: "+_generate_job_key(job['id']+"\n"
+    return "Job Key: "+str(_generate_job_key(job['id']))+"\n"
 
-def plot(restaurant):
+def plot(jid):
+    restaurant = hget(jid, 'restaurant')
     restaurant = restaurant.replace('%',' ')
-    restaurant = restaurant.replace('[', '')
-    restaurant = restaurant.replace("'", '')
-    restaurant = restaurant.replace(']', '')
+    #restaurant = restaurant.replace('[', '')
+    #restaurant = restaurant.replace("'", '')
+    #restaurant = restaurant.replace(']', '')
     dates = []
     score = []
-    for i in db.size():
-        key = 'key'+str(i)
+    for key in rd.keys():
         if rd.hget(key,'Restaurant Name') == restaurant:
             date = rd.hget(key,'Inspection Date')
             date = date.replace('[', '')
             date = date.replace("'", '')
             date = date.replace(']', '')
-            score = = rd.hget(key,'Score')
+            score = rd.hget(key,'Score')
             score = score.replace('[', '')
             score = score.replace("'", '')
             score = score.replace(']', '')
             dates = dates+datetime.datetime.strptime(date, "%m-%d-%Y")
+            return dates
             scores = scores+int(score)
+            return scores
     x = dates
     y = scores
     plt.plot(x,y)
@@ -83,4 +87,4 @@ def plot(restaurant):
     plt.savefig(str(restaurant)+'.png')
     file_bytes = open(str(restaurant)+'.png', 'rb').read()
     rd.set(str(restaurant)+'_plot', file_bytes)
-    return "Plot Key: "+str(restaurant)+'_plot'+"\n"
+    return 'Plot Key: '+str(restaurant)+'_plot'+"\n"
