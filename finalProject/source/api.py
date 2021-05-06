@@ -76,7 +76,7 @@ def jobs_api():
     return "Job submitted."+"\n"+json.dumps(jobs.add_job(job['restaurant']))
 
 def getdata():
-    with open("Restaurant_Inspections.json", "r") as json_file:
+    with open("Restaurant_Inspections_data.json", "r") as json_file:
         userdata = json.load(json_file)
     return userdata
 
