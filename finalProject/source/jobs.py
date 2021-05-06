@@ -23,7 +23,7 @@ def _instantiate_job(jid, restaurant, status):
                 'status': status
         }
     return {'id': jid.decode('utf-8'),
-            'restaurant': jid.decode('utf-8'),
+            'restaurant': restaurant.decode('utf-8'),
             'status': status.decode('utf-8')
     }
 
@@ -52,7 +52,7 @@ def update_job_status(jid, new_status):
         _save_job(_generate_job_key(job['id']), job)
     else:
         raise Exception()
-    return "Job Key: "+str(_generate_job_key(job['id']))+"\n"
+    #return "Job Key: "+str(_generate_job_key(job['id']))+"\n"
 
 def plot(jid):
     restaurant = hget(jid, 'restaurant')

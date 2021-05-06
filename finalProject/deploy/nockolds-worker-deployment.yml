@@ -21,7 +21,6 @@ spec:
           imagePullPolicy: Always
           image: colenockolds/nockolds-app:1.0
           command: ["python", "worker.py"]
-          #command: ["sleep", "99999999"]
           env:
             - name: WORKER_IP
               valueFrom:

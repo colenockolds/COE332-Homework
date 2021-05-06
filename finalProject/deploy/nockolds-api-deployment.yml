@@ -23,7 +23,6 @@ spec:
           imagePullPolicy: Always
           image: colenockolds/nockolds-app:1.0
           command: ["python", "api.py"]
-          #command: ["sleep", "99999999"]
           env:
           - name: flask-app
             value: "api.py"
