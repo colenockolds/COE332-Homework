@@ -1,6 +1,6 @@
 import json
 import redis
-from flask import Flask, request
+from flask import Flask, request, send_file
 import os
 import jobs
 import datetime
@@ -11,6 +11,7 @@ redis_ip = os.environ.get('REDIS_IP')
 if not redis_ip:
     raise Exception()
 rd=redis.StrictRedis(host=redis_ip, port=6379, db=0)
+rd_plot=redis.StrictRedis(host=redis_ip, port=6379, db=2)
 
 @app.route('/reset', methods=['GET'])
 def populate_redis():
@@ -65,7 +66,8 @@ def delete(key):
 @app.route('/emptydb', methods=['GET'])
 def emptydb():
     rd.flushdb()
-    return "Database emptied."+"\n"
+    rd_plot.flushdb()
+    return "Databases emptied."+"\n"
 
 @app.route('/jobs', methods=['POST'])
 def jobs_api():
@@ -75,8 +77,15 @@ def jobs_api():
         return True, json.dumps({'status': "Error", 'message': 'Invalid JSON: {}.'.format(e)})
     return "Job submitted."+"\n"+json.dumps(jobs.add_job(job['restaurant']))
 
+@app.route('/download/<restaurant>', methods=['GET'])
+def download(restaurant):
+    path = f'/app/{restaurant}.png'
+    with open(path, 'wb') as f:
+        f.write(rd_plot.get((str(restaurant)+'_plot')))
+    return send_file(path, mimetype='image/png', as_attachment=True)
+
 def getdata():
-    with open("Restaurant_Inspections_data.json", "r") as json_file:
+    with open("Restaurant_Inspections.json", "r") as json_file:
         userdata = json.load(json_file)
     return userdata
 
