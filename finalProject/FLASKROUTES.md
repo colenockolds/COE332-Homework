@@ -3,7 +3,7 @@ Populating the database:
 ```
 curl 10.101.16.98:5000/reset
 ```
-Creating a datapoint:
+##### Creating a datapoint:
 ```
 curl 10.101.16.98:5000/create/<key>/<name>/<address>/<zipcode>/<date>/<score>
 ```
