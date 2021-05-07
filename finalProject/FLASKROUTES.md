@@ -1,4 +1,9 @@
 This app takes the health insection score data from restaurants in Austin and plots a graph of the score a given restaurant has received over time.
+## Setting up the environment
+Exec into the debug container:
+```
+kubectl exec -it py-debug-deployment-5cc8cdd65f-bzddq -- /bin/bash
+```
 ## Routes
 Populating the database:
 ```
@@ -37,7 +42,7 @@ Returns a list of all the restaurants in the database.
 ##### Posting a job to plot the health inspection data:
 Restaurants must be input in the curl exactly as they appear in the restaurant list. Some examples are below.
 ```
-curl -X POST -H "content-type: application/json" -d '{"restaurant": "Chick-Fil-A"}' 10.101.16.98:5000/jobs
+curl -X POST -H "content-type: application/json" -d '{"restaurant": "Ross Old Austin Cafe"}' 10.101.16.98:5000/jobs
 curl -X POST -H "content-type: application/json" -d '{"restaurant": "Black Walnut Cafe"}' 10.101.16.98:5000/jobs
 ```
 ##### Accessing the plots:
@@ -47,6 +52,6 @@ https://isp-proxy.tacc.utexas.edu/nockolds/download/restaurantname
 ```
 Replace restaurant name with the name of the restaurant. If there are spaces in the name, replace them with -.
 ```
-https://isp-proxy.tacc.utexas.edu/nockolds/download/Chick-Fil-A
+https://isp-proxy.tacc.utexas.edu/nockolds/download/Ross-Old-Austin-Cafe
 ```
 This will download a plot of the recent health inspection data.
